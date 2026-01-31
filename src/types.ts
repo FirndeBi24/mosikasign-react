@@ -13,6 +13,11 @@ export interface MosikaSignFormProps {
   onCompleted?: (data: CompletionData) => void;
 
   /**
+   * Callback appelé quand le formulaire est refusé/décliné
+   */
+  onDeclined?: (data: DeclineData) => void;
+
+  /**
    * Callback appelé quand l'iframe est chargée et prête
    */
   onReady?: () => void;
@@ -80,6 +85,17 @@ export interface CompletionData {
   submitterEmail?: string;
 }
 
+export interface DeclineData {
+  type: 'mosikasign:declined';
+  slug: string;
+  submitterId: string;
+  submissionId: string;
+  declinedAt: string;
+  declineReason: string;
+  submitterName?: string;
+  submitterEmail?: string;
+}
+
 export interface ErrorData {
   type: 'mosikasign:error';
   slug?: string;
@@ -92,5 +108,5 @@ export interface ReadyData {
   slug: string;
 }
 
-export type MosikaSignMessage = CompletionData | ErrorData | ReadyData;
+export type MosikaSignMessage = CompletionData | DeclineData | ErrorData | ReadyData;
 

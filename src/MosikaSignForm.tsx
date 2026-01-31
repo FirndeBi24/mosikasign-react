@@ -5,6 +5,7 @@ import type { MosikaSignFormProps } from './types';
 export const MosikaSignForm: React.FC<MosikaSignFormProps> = ({
   formUrl,
   onCompleted,
+  onDeclined,
   onReady,
   onError,
   width = '100%',
@@ -21,6 +22,7 @@ export const MosikaSignForm: React.FC<MosikaSignFormProps> = ({
   // Hook pour écouter les messages postMessage
   usePostMessage({
     onCompleted,
+    onDeclined,
     onReady,
     onError,
     allowedOrigins,

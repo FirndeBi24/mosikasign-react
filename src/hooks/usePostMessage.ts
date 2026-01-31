@@ -3,6 +3,7 @@ import type { MosikaSignMessage, MosikaSignFormProps } from '../types';
 
 interface UsePostMessageOptions {
   onCompleted?: MosikaSignFormProps['onCompleted'];
+  onDeclined?: MosikaSignFormProps['onDeclined'];
   onReady?: MosikaSignFormProps['onReady'];
   onError?: MosikaSignFormProps['onError'];
   allowedOrigins?: string[];
@@ -10,6 +11,7 @@ interface UsePostMessageOptions {
 
 export function usePostMessage({
   onCompleted,
+  onDeclined,
   onReady,
   onError,
   allowedOrigins,
@@ -36,6 +38,10 @@ export function usePostMessage({
         onCompleted?.(event.data as any);
         break;
 
+      case 'mosikasign:declined':
+        onDeclined?.(event.data as any);
+        break;
+
       case 'mosikasign:ready':
         onReady?.();
         break;
@@ -47,7 +53,7 @@ export function usePostMessage({
       default:
         console.log('MosikaSign: Message non géré:', type);
     }
-  }, [onCompleted, onReady, onError, allowedOrigins]);
+  }, [onCompleted, onDeclined, onReady, onError, allowedOrigins]);
 
   useEffect(() => {
     window.addEventListener('message', handleMessage);
